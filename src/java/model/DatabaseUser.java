@@ -5,14 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
-
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import model.entities.Utenti;
 
 /**
  *
@@ -20,31 +13,31 @@ import javax.persistence.Persistence;
  */
 
 public class DatabaseUser {
-    public static List <UserItem> listaUsers= new ArrayList<>();
+    public static List <Utenti> listaUsers= new ArrayList<>();
      private EntityManagerFactory emf = Persistence.createEntityManagerFactory("DvdLibraryPU");
     private EntityManager em = emf.createEntityManager();
     
-     public  List <UserItem> getListaUtenti(){
+     public  List <Utenti> getListaUtenti(){
         EntityManager em = emf.createEntityManager();
         try {
-        listaUsers =  em.createQuery("SELECT utente FROM utenti;").getResultList();
+        listaUsers =  em.createQuery("SELECT u FROM u;").getResultList();
         return listaUsers;
         }  
         catch (Exception e) { 
-        String errore = e.getMessage(); }
-
-        return ;
-        }finally {
+        String errore = e.getMessage(); 
+        return null;
+     }finally {
             em.close();  
         }
         
+     }
     
-    
-    public void addListaUsers(Utente user){
-        
-        
+    public void addListaUsers(Utenti user){
+            
         this.listaUsers.add(user);
     }
+        
+    
     
     
      public void removeListaUsers(UserItem user){
@@ -53,13 +46,13 @@ public class DatabaseUser {
     }
      
      public static boolean controlloRegistro(String name, String psw){
-         for(UserItem user : listaUsers){
+         for(Utenti user : listaUsers){
              if (user.getPassword().equals (psw) && user.getUsername().equals (name)){
                  return true;
              }
          }
              return false;
-    }
+    } 
   
 }
 
